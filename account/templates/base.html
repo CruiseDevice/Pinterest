@@ -1,0 +1,46 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static "css/base.css" %}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div id="header">
+        <span class="logo">Pinterest</span>
+        {% if request.user.is_authenticated %}
+        
+        {% endif %}
+        
+        <span class="user">
+        {% if request.user.is_authenticated %}
+            Hello {{ request.user.first_name }}, <a href="{% url "account:logout" %}">Logout</a>
+        {% else %}
+            <a href="{% url "account:login" %}">Log-in</a>
+        {% endif %}
+        </span>
+    </div>
+    {% if messages %}
+        <ul class = "messages">
+            {% for message in messages %}
+                <li class = "{{message.tags}}">
+                    {{message|safe}}
+                    <a href="#" class = "close">✖</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
