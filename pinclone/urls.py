@@ -20,12 +20,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^account/',include('account.urls',namespace='account'))
+    url(r'^account/', include('account.urls', namespace='account')),
+    url(r'^', include('pinterest.urls', namespace='pinterest')),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                             document_root=settings.MEDIA_ROOT)
-
-
-
