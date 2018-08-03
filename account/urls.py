@@ -32,11 +32,6 @@ urlpatterns = [
         name='logout_then_login'
     ),
     url(
-        r'^$',
-        views.dashboard,
-        name='dashboard'
-    ),
-    url(
         r'^password-change/$',
         password_change,
         name='password_change'
