@@ -4,3 +4,4 @@ __pycache__
 .vscode
 **/credentials.py
 pinclone/credentials.py
+media
