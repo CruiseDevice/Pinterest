@@ -1,10 +1,12 @@
 from django.conf.urls import url
 
-from django.contrib.auth.views import (
-    login, logout, logout_then_login, password_change,
-    password_change_done, password_reset, password_reset_done,
-    password_reset_confirm, password_reset_complete
-)
+# from django.contrib.auth.views import (
+#     login, logout, logout_then_login, password_change,
+#     password_change_done, password_reset, password_reset_done,
+#     password_reset_confirm, password_reset_complete
+# )
+
+from django.contrib.auth import views as auth_views
 
 from . import views
 
@@ -13,7 +15,7 @@ urlpatterns = [
     # url(r'^login/',views.user_login,name='login')
     url(
         r'^login/$',
-        login,
+        auth_views.LoginView.as_view(template_name='registration/login.html'),
         name='login'
     ),
     url(
@@ -23,44 +25,46 @@ urlpatterns = [
     ),
     url(
         r'^logout/$',
-        logout,
+        auth_views.LogoutView.as_view(
+            template_name='registration/logged_out.html'),
         name='logout'
     ),
     url(
-        r'^logout-then-login/$',
-        logout_then_login,
-        name='logout_then_login'
-    ),
-    url(
-        r'^password-change/$',
-        password_change,
+        r'^password-change/',
+        auth_views.PasswordChangeView.as_view(
+            template_name='registration/password_change_form.html'),
         name='password_change'
     ),
     url(
         r'^password-change/done/$',
-        password_change_done,
+        auth_views.PasswordChangeDoneView.as_view(
+            template_name='registration/password_change_done.html'),
         name='password_change_done'
     ),
-    # restore password urls
+    # # restore password urls
     url(
         r'^password-reset/$',
-        password_reset,
+        auth_views.PasswordResetView.as_view(
+            template_name='registration/password_reset_form.html'),
         name='password-reset'
     ),
     url(
-        r'^password-reset/done/$',
-        password_reset_done,
+        r'^password-reset/done/',
+        auth_views.PasswordResetDoneView.as_view(
+            template_name='registration/password_reset_done.html'),
         name='password_reset_done'
     ),
     url(
         r'^password-reset/confirm/(?P<uidb64>[-\w]+)/(?P<token>[-\w]+)/$',
-        password_reset_confirm,
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name='password_reset_confirm.html'),
         name='password_reset_confirm'
     ),
 
     url(
         r'^password-reset/complete/$',
-        password_reset_complete,
+        auth_views.PasswordResetCompleteView.as_view(
+            template_name='password_reset_complete.html'),
         name='password_reset_complete'
     ),
 

@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     'pinterest',
     'account',
     'django.contrib.admin',
-    
-    # 'social.apps.django_app.default',
 ]
 
 MIDDLEWARE = [
@@ -52,9 +50,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    # 'social.apps.django_app.context_processors.backends',
-    # 'social.apps.django_app.context_processors.login_redirect',
 ]
 
 ROOT_URLCONF = 'pinclone.urls'
@@ -130,5 +125,4 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
 
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
