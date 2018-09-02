@@ -45,22 +45,14 @@
 			<div class = "thumbnail">
 				{% if request.user.is_authenticated %}
 					{% for image in images %}
-						{% if image %}
-							<img src="{{image.url}}" class="img-fluid" style="width:100%" >
-						{% else %}
-							<img src="">
-						{% endif %}
+							<img src="{{image.url}}" class="img-fluid bounceIn" style="width:100%" >
 						<div class = "caption">
 							<p>by {{image.user}}...</p>
 						</div>
 					{% endfor %}
 				{% else %}
 					{% for image in images %}
-						{% if image %}
-							<img src="{{image.url}}" class="img-fluid" style="width:100%" >
-						{% else %}
-							<img src="">
-						{% endif %}
+							<img src="{{image.url}}" class="img-fluid bounceIn" style="width:100%" >
 						<div class = "caption">
 							<p>by {{image.user}}...</p>
 						</div>

@@ -38,7 +38,7 @@ def image_create(request):
 			new_item.user = request.user
 			new_item.save()
 			messages.success(request,'Image added successfully')
-			return redirect(new_item.get_absolute_url())
+			return redirect('pinterest:my_post')
 		
 	else:
 		form = PinCreateForm()
