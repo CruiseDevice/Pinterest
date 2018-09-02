@@ -6,6 +6,7 @@ from django.utils.text import slugify
 
 from .models import Pin
 
+default_img = 'http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png'
 
 class PinCreateForm(forms.ModelForm):
 	class Meta:
@@ -14,8 +15,13 @@ class PinCreateForm(forms.ModelForm):
 		fields = ('title','url')
 		
 	def clean_url(self):
-		url = self.cleaned_data['url']
-		valid_extensions = ['jpg','jpeg']
+		if self.cleaned_data['url']:
+			url = self.cleaned_data['url']
+		else:
+			url = default_img
+		print('url:',url)
+
+		valid_extensions = ['jpg','jpeg','png']
 		extension = url.rsplit('.',1)[1].lower()
 		if extension not in valid_extensions:
 			raise forms.ValidationError('The given URL does not match valid \
@@ -24,7 +30,10 @@ class PinCreateForm(forms.ModelForm):
 
 	def save(self, force_insert=False, force_update=False, commit=False):
 	    image = super(PinCreateForm, self).save(commit=False)
-	    image_url = self.cleaned_data['url']
+	    if self.cleaned_data['url'] is None:
+	    	image_url = default_img
+	    else:
+	    	image_url = self.cleaned_data['url']
 	    image_name = '{}.{}'.format(slugify(image.title),
 	                                image_url.rsplit('.', 1)[1].lower())
 

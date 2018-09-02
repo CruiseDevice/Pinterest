@@ -6,10 +6,25 @@ from .models import Pin
 from .forms import PinCreateForm
 
 def index(request):
-	images = Pin.objects.all()
+	images = Pin.objects.all().order_by('-created')
 	return render(request,'pinterest/index.html',{
 		'images':images	
 	})
+
+def my_post(request):
+	user = request.user
+	context = {}
+	if user:
+		images = Pin.objects.filter(user=user).order_by('-created')
+		print(images)
+		message = "Your pinned images"
+	else:
+		message = "You have no images pinned"
+	context = {
+		'images':images,
+		'message':message,
+	}
+	return render(request, 'pinterest/index.html',context)
 
 # @login_required
 def image_create(request):

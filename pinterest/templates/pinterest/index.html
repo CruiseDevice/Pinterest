@@ -43,12 +43,29 @@
 	<div class ="gallery" id = "gallery">
 		<div class = "mb-3 pics animation all 2">
 			<div class = "thumbnail">
-				{% for image in images %}
-					<img src="{{image.url}}" class="img-fluid" style="width:100%" >
-					<div class = "caption">
-						<p>by {{image.user}}...</p>
-					</div>
-				{% endfor %}			
+				{% if request.user.is_authenticated %}
+					{% for image in images %}
+						{% if image %}
+							<img src="{{image.url}}" class="img-fluid" style="width:100%" >
+						{% else %}
+							<img src="">
+						{% endif %}
+						<div class = "caption">
+							<p>by {{image.user}}...</p>
+						</div>
+					{% endfor %}
+				{% else %}
+					{% for image in images %}
+						{% if image %}
+							<img src="{{image.url}}" class="img-fluid" style="width:100%" >
+						{% else %}
+							<img src="">
+						{% endif %}
+						<div class = "caption">
+							<p>by {{image.user}}...</p>
+						</div>
+					{% endfor %}		
+				{% endif %}
 			</div>
 		</div>
 	</div>	
