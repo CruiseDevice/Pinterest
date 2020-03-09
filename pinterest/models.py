@@ -12,7 +12,9 @@ class Pin(models.Model):
 	slug=models.SlugField(max_length=200,blank=True)
 	url=models.URLField(blank=True)
 	image=models.ImageField(upload_to='images/%Y/%m/%d', blank=True)
+	description = models.TextField(blank=True, default='')
 	created=models.DateField(auto_now_add=True,db_index=True)
+
 	user_like = models.ManyToManyField(
 		settings.AUTH_USER_MODEL, related_name='images_liked',
 		blank=True
