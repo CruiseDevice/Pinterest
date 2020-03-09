@@ -14,6 +14,4 @@ class Profile(models.Model):
     )
 
     def __str__(self):
-        return 'Profile for user {}'.format(self.user.username)
-
-    
+        return 'Profile for user {0}'.format(self.user.username)

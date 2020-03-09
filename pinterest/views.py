@@ -6,10 +6,10 @@ from .models import Pin
 from .forms import PinCreateForm
 
 def index(request):
-	images = Pin.objects.all().order_by('-created')
-	return render(request,'pinterest/index.html',{
-		'images':images	
-	})
+    images = Pin.objects.all().order_by('-created')
+    return render(request, 'pinterest/index.html', {
+                'images': images,
+        })
 
 def my_post(request):
 	user = request.user
