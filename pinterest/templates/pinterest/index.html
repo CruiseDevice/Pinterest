@@ -2,67 +2,35 @@
 {% load staticfiles %}
 {% block title %}
 {% endblock %}
-{% block styleblock %}
-	<style type="text/css">		
-		.gallery {
-		    -webkit-column-count: 3;
-		    -moz-column-count: 3;
-		    column-count: 3;
-		    -webkit-column-width: 33%;
-		    -moz-column-width: 33%;
-		    column-width: 33%; }
-		.gallery .pics {
-		    -webkit-transition: all 350ms ease;
-		    transition: all 350ms ease; }
-		.gallery .animation {
-		    -webkit-transform: scale(1);
-		    -ms-transform: scale(1);
-		    transform: scale(1); }
-
-		@media (max-width: 450px) {
-		    .gallery {
-		        -webkit-column-count: 1;
-		        -moz-column-count: 1;
-		        column-count: 1;
-		        -webkit-column-width: 100%;
-		        -moz-column-width: 100%;
-		        column-width: 100%;
-		    }
-		}
-
-		@media (max-width: 400px) {
-		    .btn.filter {
-		        padding-left: 1.1rem;
-		        padding-right: 1.1rem;
-		    }
-		}
-	</style>
-{% endblock %}
 {% block content %}
-	<h1>Pined Images</h1>
-	<div class ="gallery" id = "gallery">
-		<div class = "mb-3 pics animation all 2">
-			<div class = "thumbnail">
-				{% if request.user.is_authenticated %}
-					{% for image in images %}
-						<img src="{{image.url}}" class="img-fluid bounceIn" style="width:100%" >
-						<div class = "caption">
-							<p>by {{image.user}}...</p>
+	{% if request.user.is_authenticated %}
+		<h1>Pined Images</h1>
+		<br>
+		<div class="container">
+			<div class="gallery">
+				{% for image in images %}
+					<div class="card">
+						<div class="card-header">
+							<div class="gallery-item" tabindex=0>
+								<img src="{{image.url}}" class="gallery-image" alt="">
+							</div>
 						</div>
-						<div class = "dot"></div>
-					{% endfor %}
-				{% else %}
-					{% for image in images %}
-							<img src="{{image.url}}" class="img-fluid bounceIn" style="width:100%" >
-						<div class = "caption">
-							<p>by {{image.user}}...</p>
+						<div class="card-body">
+							<p class="card-text mb-2">{{image.title}}</p>
+							<p class="card-text"><i class="far fa-clock pr-2"></i>{{image.created}}</p>
+							<p class="card-text">by <strong>{{image.user}}</strong></p>
+							<p>{{image.description}}</p>
 						</div>
-
-					{% endfor %}		
-				{% endif %}
+						<div class="card-footer">
+					        <i class="fas fa-heart text-muted float-right my-1 mr-3" data-toggle="tooltip" data-placement="top" title="I like it"></i>
+					        {% if request.user == image.user %}
+						        <a href="{% url 'pinterest:delete_image' image.id %}"><i class="far fa-trash-alt float-right my-1 mr-3"></i></a>
+					        {% endif %}
+					        {{image.user_like.count}}
+						</div>
+					</div>
+				{% endfor %}
 			</div>
 		</div>
-
-	</div>	
-				
+	{% endif %}
 {% endblock %}
