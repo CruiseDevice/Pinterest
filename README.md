@@ -9,9 +9,9 @@ Fulfill the below user stories. Use whichever libraries or APIs you need. Give i
 
 - [ ] User Story: As an unauthenticated user, I can login with GitHub.
 
-- [ ] User Story: As an authenticated user, I can link to images.
+- [x] User Story: As an authenticated user, I can link to images.
 
-- [ ] User Story: As an authenticated user, I can delete images that I've linked to.
+- [x] User Story: As an authenticated user, I can delete images that I've linked to.
 
 - [x] User Story: As an authenticated user, I can see a Pinterest-style wall of all the images I've linked to.
 

@@ -24,7 +24,7 @@
 						<div class="card-footer">
 					        <i class="fas fa-heart text-muted float-right my-1 mr-3" data-toggle="tooltip" data-placement="top" title="I like it"></i>
 					        {% if request.user == image.user %}
-								<i class="far fa-trash-alt float-right my-1 mr-3"></i>
+						        <a href="{% url 'pinterest:delete_image' image.id %}"><i class="far fa-trash-alt float-right my-1 mr-3"></i></a>
 					        {% endif %}
 					        {{image.user_like.count}}
 						</div>

@@ -16,7 +16,6 @@ def my_post(request):
 	context = {}
 	if user:
 		images = Pin.objects.filter(user=user).order_by('-created')
-		print(images)
 		message = "Your pinned images"
 	else:
 		message = "You have no images pinned"
@@ -28,7 +27,6 @@ def my_post(request):
 
 # @login_required
 def image_create(request):
-	print("image_create")
 	if request.method == 'POST':
 		
 		form = PinCreateForm(request.POST)
@@ -54,3 +52,8 @@ def image_detail(request, id ,slug):
 		'section':'images',
 		'image':image	
 	})
+
+def delete_image(request, id):
+	image = get_object_or_404(Pin,id=id)
+	image.delete()
+	return redirect("pinterest:my_post")
