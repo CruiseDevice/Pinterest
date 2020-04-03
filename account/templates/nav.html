@@ -6,17 +6,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item {% if index == 'Home' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'pinterest:index' %}">Home
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
         {% if user.is_authenticated %}
-            <li class="nav-item">
+            <li class="nav-item {% if my_post == 'My Posts' %}active{% endif %}">
                 <a class="nav-link" href="{% url 'pinterest:my_post' %}">My Posts</a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item {% if create == 'New Post' %}active{% endif %}">
                 <a class="nav-link disabled" href="{% url 'pinterest:create' %}">New Post</a>
             </li>
 

@@ -9,6 +9,7 @@ def index(request):
     images = Pin.objects.all().order_by('-created')
     return render(request, 'pinterest/index.html', {
                 'images': images,
+                'index': 'Home'
         })
 
 def my_post(request):
@@ -22,6 +23,7 @@ def my_post(request):
 	context = {
 		'images':images,
 		'message':message,
+		'my_post': 'My Posts'
 	}
 	return render(request, 'pinterest/index.html',context)
 
@@ -42,16 +44,10 @@ def image_create(request):
 		form = PinCreateForm()
 	return render(request,'pinterest/pin/create.html',{
 		'section':'images',
-		'form':form	
+		'form':form,
+		'create': 'New Post'
 	})
 
-
-def image_detail(request, id ,slug):
-	image = get_object_or_404(Pin,id=id, slug=slug)
-	return render(request,'pinterest/pin/detail.html',{
-		'section':'images',
-		'image':image	
-	})
 
 def delete_image(request, id):
 	image = get_object_or_404(Pin,id=id)
