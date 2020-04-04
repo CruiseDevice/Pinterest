@@ -22,15 +22,76 @@
 							<p>{{image.description}}</p>
 						</div>
 						<div class="card-footer">
-					        <i class="fas fa-heart text-muted float-right my-1 mr-3" data-toggle="tooltip" data-placement="top" title="I like it"></i>
-					        {% if request.user == image.user %}
-						        <a href="{% url 'pinterest:delete_image' image.id %}"><i class="far fa-trash-alt float-right my-1 mr-3"></i></a>
-					        {% endif %}
-					        {{image.user_like.count}}
+              <a href="#" class="like float-right" id="image-{{image.id}}" data-id="{{ image.id }}" data-action="{% if request.user in image.user_like.all %}un{% endif %}like">
+                {% if request.user not in image.user_like.all %}
+                  Like
+                {% else %}
+                  Unlike
+                {% endif %}
+              </a>
+              {% if request.user == image.user %}
+                <a href="{% url 'pinterest:delete_image' image.id %}"><i class="far fa-trash-alt float-right my-1 mr-3"></i></a>
+              {% endif %}
+              <span id="count-{{image.id}}" class="count">
+                {{image.user_like.count}}
+              </span>
 						</div>
 					</div>
 				{% endfor %}
 			</div>
 		</div>
+  {% else %}
+    <div>
+      <center>You need to be logged in to see Pins.</center>
+    </div>
 	{% endif %}
+  <script>
+    function getCookie(c_name){
+      if (document.cookie.length > 0){
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1){
+          c_start = c_start + c_name.length + 1;
+          c_end = document.cookie.indexOf(";", c_start);
+          if (c_end == -1) c_end = document.cookie.length;
+          return unescape(document.cookie.substring(c_start,c_end));
+        }
+      }
+      return "";
+    }
+
+    $('a.like').click((e) => {
+      e.preventDefault();
+      let dataset = Object.assign({}, e.target.dataset);
+      let id = dataset['id']
+      let action = dataset['action']
+      console.log(id ,action)
+      $.ajax({
+        url: '{% url "pinterest:like_image" %}',
+        method: 'POST',
+        data: {
+          id: id,
+          action: action
+        },
+        headers: {
+          "X-CSRFToken": getCookie("csrftoken")
+        }
+      })
+        .then((response) => {
+          if(response['status'] == 'ok') {
+            var previous_action = $('#image-'+id).data('action')
+            // toggle data-action
+            $('#image-'+id).data('action', previous_action == 'like' ? 'unlike' : 'like');
+            // toggle link text
+            $('#image-'+id).text(previous_action == 'like' ? 'Unlike' : 'Like');
+
+            // update total likes
+            var previous_likes = parseInt($('#count-'+id).text());
+            $('#count-'+id).text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    });
+  </script>
 {% endblock %}
