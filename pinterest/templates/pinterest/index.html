@@ -3,25 +3,25 @@
 {% block title %}
 {% endblock %}
 {% block content %}
-	{% if request.user.is_authenticated %}
-		<h1>Pined Images</h1>
-		<br>
-		<div class="container">
-			<div class="gallery">
-				{% for image in images %}
-					<div class="card">
-						<div class="card-header">
-							<div class="gallery-item" tabindex=0>
-								<img src="{{image.url}}" class="gallery-image" alt="">
-							</div>
-						</div>
-						<div class="card-body">
-							<p class="card-text mb-2">{{image.title}}</p>
-							<p class="card-text"><i class="far fa-clock pr-2"></i>{{image.created}}</p>
-							<p class="card-text">by <strong>{{image.user}}</strong></p>
-							<p>{{image.description}}</p>
-						</div>
-						<div class="card-footer">
+  {% if request.user.is_authenticated %}
+    <h1>Pined Images</h1>
+    <br>
+    <div class="container">
+      <div class="gallery">
+        {% for image in images %}
+          <div class="card">
+            <div class="card-header">
+              <div class="gallery-item" tabindex=0>
+                <img src="{{image.url}}" class="gallery-image" alt="">
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="card-text mb-2">{{image.title}}</p>
+              <p class="card-text"><i class="far fa-clock pr-2"></i>{{image.created}}</p>
+              <p class="card-text">by <strong>{{image.user}}</strong></p>
+              <p>{{image.description}}</p>
+            </div>
+            <div class="card-footer">
               <a href="#" class="like float-right" id="image-{{image.id}}" data-id="{{ image.id }}" data-action="{% if request.user in image.user_like.all %}un{% endif %}like">
                 {% if request.user not in image.user_like.all %}
                   Like
@@ -35,16 +35,16 @@
               <span id="count-{{image.id}}" class="count">
                 {{image.user_like.count}}
               </span>
-						</div>
-					</div>
-				{% endfor %}
-			</div>
-		</div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
   {% else %}
     <div>
       <center>You need to be logged in to see Pins.</center>
     </div>
-	{% endif %}
+  {% endif %}
   <script>
     function getCookie(c_name){
       if (document.cookie.length > 0){

@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
 
+
 class EmailAuthBackend(object):
     """
-    Authenticate using e-mail account. 
+    Authenticate using e-mail account.
     """
     def authenticate(self, username=None, password=None):
         try:
@@ -22,5 +23,3 @@ class EmailAuthBackend(object):
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
             return None
-
-                

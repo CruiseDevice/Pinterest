@@ -1,14 +1,15 @@
 from django.db import models
 from django.conf import settings
 
+
 class Profile(models.Model):
-    user=models.OneToOneField(settings.AUTH_USER_MODEL)
-    date_of_birth=models.DateTimeField(
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    date_of_birth = models.DateTimeField(
         blank=True,
         # get_user_model(),
         null=True
     )
-    photo=models.ImageField(
+    photo = models.ImageField(
         upload_to='users/%Y/%m/%d',
         blank=True
     )
