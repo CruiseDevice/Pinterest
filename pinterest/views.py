@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.contrib.auth.models import User
 
 from .models import Pin
 from .forms import PinCreateForm
@@ -15,19 +16,20 @@ def index(request):
         })
 
 
-def my_post(request):
-    user = request.user
+def my_post(request, user_id=None):
     context = {}
-    if user:
+    if user_id:
+        user = User.objects.get(id=user_id)
+        images = Pin.objects.filter(user=user).order_by('-created')
+        message = "Pinned images"
+    else:
+        user = request.user
         images = Pin.objects.filter(user=user).order_by('-created')
         message = "Your pinned images"
-    else:
-        message = "You have no images pinned"
-    context = {
-        'images': images,
-        'message': message,
-        'my_post': 'My Posts'
-    }
+        context["my_post"] = 'My Posts'
+
+    context["images"] = images
+    context["message"] = message
     return render(request, 'pinterest/index.html', context)
 
 

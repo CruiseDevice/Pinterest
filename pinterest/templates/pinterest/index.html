@@ -18,7 +18,7 @@
             <div class="card-body">
               <p class="card-text mb-2">{{image.title}}</p>
               <p class="card-text"><i class="far fa-clock pr-2"></i>{{image.created}}</p>
-              <p class="card-text">by <strong>{{image.user}}</strong></p>
+              <p class="card-text">by <strong><a href="{% url "pinterest:user_post" image.user.id %}">{{image.user}}</a></strong></p>
               <p>{{image.description}}</p>
             </div>
             <div class="card-footer">

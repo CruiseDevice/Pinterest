@@ -15,8 +15,8 @@ Fulfill the below user stories. Use whichever libraries or APIs you need. Give i
 
 - [x] User Story: As an authenticated user, I can see a Pinterest-style wall of all the images I've linked to.
 
-- [ ] User Story: As an unauthenticated user, I can browse other users' walls of images.
+- [x] User Story: As an unauthenticated user, I can browse other users' walls of images.
 
-- [ ] User Story: As an authenticated user, if I upload an image that is broken, it will be replaced by a placeholder image. (can use jQuery broken image detection)
+- [x] User Story: As an authenticated user, if I upload an image that is broken, it will be replaced by a placeholder image. (can use jQuery broken image detection)
 
 Hint: Masonry.js is a library that allows for Pinterest-style image grids.
